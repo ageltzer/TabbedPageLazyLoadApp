@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:TabbedPageLazyLoadApp"
+             x:Class="TabbedPageLazyLoadApp.MainPage">
+    <TabbedPage.Behaviors>
+        <local:ActivePageTabbedPageBehavior />
+    </TabbedPage.Behaviors>
+
+    <ContentPage Title="First tab">
+        <Label Text="First tab layout" />
+    </ContentPage>
+
+    <local:LazyLoadedContentPage Title="Second tab">
+        <ContentPage.Behaviors>
+            <local:LazyContentPageBehavior ContentTemplate="{StaticResource ContentTemplate}" />
+        </ContentPage.Behaviors>
+        <ContentPage.Resources>
+            <ResourceDictionary>
+                <DataTemplate x:Key="ContentTemplate">
+                    <!-- Complex and slow to render layout -->
+                    <local:SlowContentView />
+                </DataTemplate>
+            </ResourceDictionary>
+        </ContentPage.Resources>
+    </local:LazyLoadedContentPage>
+</TabbedPage>
